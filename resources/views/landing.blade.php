@@ -16,8 +16,6 @@
 
         <nav class="hidden md:flex gap-8 text-sm text-gray-700 items-center">
             <a href="#" class="hover:text-black">Beranda</a>
-            <a href="#" class="hover:text-black">Tentang</a>
-            <a href="#" class="hover:text-black">Layanan</a>
 
             <!-- DROPDOWN CLICK -->
             <div class="relative">
@@ -91,53 +89,83 @@
         </p>
 
         <div class="flex gap-3">
-            <a href="#" class="bg-black text-white px-6 py-3 text-sm hover:bg-gray-800">
+            <a href="{{ auth()->check() ? route('dashboard') : route('login') }}" 
+            class="bg-black text-white px-6 py-3 text-sm hover:bg-gray-800">
                 Coba Sekarang
             </a>
-            <a href="#" class="border border-gray-300 px-6 py-3 text-sm hover:border-gray-400">
-                Lihat Detail
-            </a>
         </div>
+
     </div>
 
     <!-- HERO IMAGE -->
-    <div class="mt-12">
-        <div class="w-full h-80 bg-gray-800  flex items-center justify-center text-white">
-            <div class="text-center">
-                <p class="text-sm opacity-75">Math illustrations</p>
-                <p class="text-6xl font-bold mt-2">MATH</p>
-            </div>
-        </div>
-    </div>
+<div class="mt-12">
+    <img src="{{ asset('images/math-banner.jpg') }}" alt="Math Banner" class="w-full h-100 object-cover shadow-xl">
+</div>
 </section>
 
 <!-- ================= STATISTIK ================= -->
 <section class="max-w-7xl mx-auto px-6 py-20">
     <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="flex flex-col md:justify-between md:h-[500px]">
+    
+    <div>
+        <p class="text-sm text-gray-500 mb-3 uppercase tracking-wide">Statistik</p>
+        <h3 class="text-4xl font-bold mb-6 leading-tight">
+            Minat Terhadap Kalkulus di Dunia & Indonesia
+        </h3>
+
+        <p class="text-gray-600 leading-relaxed mb-8">
+            Pembelajaran kalkulus dasar yang disusun secara bertahap dan terstruktur 
+            membantu meningkatkan minat belajar matematika lanjutan.
+        </p>
+    </div>
+
+    <div class="flex gap-16">
         <div>
-            <p class="text-sm text-gray-500 mb-3 uppercase tracking-wide">Statistik</p>
-            <h3 class="text-4xl font-bold mb-6 leading-tight">
-                Minat Terhadap Kalkulus di Dunia & Indonesia
-            </h3>
-
-            <p class="text-gray-600 leading-relaxed mb-10">
-                Pembelajaran kalkulus dasar yang disusun secara bertahap dan terstruktur 
-                membantu meningkatkan minat belajar matematika lanjutan.
-            </p>
-
-            <div class="flex gap-16">
-                <div>
-                    <p class="text-5xl font-bold mb-1">68%</p>
-                    <p class="text-sm text-gray-500">Peminat Kalkulus di Dunia</p>
-                </div>
-                <div>
-                    <p class="text-5xl font-bold mb-1">54%</p>
-                    <p class="text-sm text-gray-500">Peminat Kalkulus di Indonesia</p>
-                </div>
-            </div>
+            <p class="text-5xl font-bold mb-1 counter" data-target="68">0%</p>
+            <p class="text-sm text-gray-500">Peminat Kalkulus di Dunia</p>
         </div>
+        <div>
+            <p class="text-5xl font-bold mb-1 counter" data-target="54">0%</p>
+            <p class="text-sm text-gray-500">Peminat Kalkulus di Indonesia</p>
+        </div>
+    </div>
 
-        <div class="bg-teal-700 h-96"></div>
+    <script>
+        const animateCounter = (el) => {
+            const target = +el.getAttribute('data-target');
+            const duration = 1500;
+            const start = performance.now();
+
+            const step = (now) => {
+                const progress = Math.min((now - start) / duration, 1);
+                el.innerText = Math.floor(progress * target) + '%';
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.counter').forEach(el => observer.observe(el));
+        });
+    </script>
+
+</div>
+
+        <div class="h-[500px]">
+            <img src="{{ asset('images/reset-mtk.png') }}" 
+                alt="Reset Math" 
+                class="w-full h-full object-cover shadow-lg">
+        </div>
     </div>
 </section>
 
@@ -148,46 +176,67 @@
         Kalkulus Dasar untuk Pembelajaran yang Lebih Mudah
     </h3>
 
-    <div class="grid md:grid-cols-3 gap-6">
-        <!-- CARD INTEGRAL -->
-        <div class="relative overflow-hidden h-96 bg-teal-800">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <div class="text-white">
-                    <h4 class="font-bold text-xl mb-1">Integral</h4>
-                    <p class="text-sm opacity-90">Integral digunakan untuk menghitung luas daerah di bawah kurva dan akumulasi kuantitas. Konsep ini fundamental dalam...</p>
-                </div>
-            </div>
-        </div>
+    <div class="flex gap-6 overflow-x-auto overflow-y-visible scroll-smooth pb-4 pt-4">
 
-        <!-- CARD TURUNAN -->
-        <div class="relative overflow-hidden h-96 bg-gray-900">
-            <div class="absolute inset-0 flex items-center justify-center text-white text-xs opacity-30">
-                <div class="transform rotate-12">∫ f(x)dx = F(x) + C</div>
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <div class="text-white">
-                    <h4 class="font-bold text-xl mb-1">Turunan</h4>
-                    <p class="text-sm opacity-90">Turunan atau diferensial mempelajari laju perubahan suatu fungsi. Ini membantu kita memahami...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD LIMIT -->
-        <div class="relative overflow-hidden h-96 bg-teal-900">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <div class="text-white">
-                    <h4 class="font-bold text-xl mb-1">Limit</h4>
-                    <p class="text-sm opacity-90">Limit adalah dasar dari kalkulus yang menjelaskan pendekatan nilai fungsi saat variabel mendekati...</p>
-                </div>
+    <!-- CARD INTEGRAL -->
+    <div class="relative min-w-[300px] h-96 overflow-hidden transform transition duration-300 hover:-translate-y-2 bg-cover bg-center"
+         style="background-image: url('{{ asset('images/integral-landing.png') }}');">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div class="text-white">
+                <h4 class="font-bold text-xl mb-1">Integral</h4>
+                <p class="text-sm opacity-90">
+                    Integral digunakan untuk menghitung luas daerah di bawah kurva dan akumulasi kuantitas.
+                </p>
             </div>
         </div>
     </div>
+
+    <!-- CARD TURUNAN -->
+    <div class="relative min-w-[300px] h-96 overflow-hidden transform transition duration-300 hover:-translate-y-2 bg-cover bg-center"
+         style="background-image: url('{{ asset('images/turunan-landing.png') }}');">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div class="text-white">
+                <h4 class="font-bold text-xl mb-1">Turunan</h4>
+                <p class="text-sm opacity-90">
+                    Turunan mempelajari laju perubahan suatu fungsi dan sangat penting dalam optimasi.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD LIMIT -->
+    <div class="relative min-w-[300px] h-96 overflow-hidden transform transition duration-300 hover:-translate-y-2 bg-cover bg-center"
+         style="background-image: url('{{ asset('images/limit-landing.png') }}');">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div class="text-white">
+                <h4 class="font-bold text-xl mb-1">Limit</h4>
+                <p class="text-sm opacity-90">
+                    Limit menjelaskan bagaimana fungsi mendekati nilai tertentu saat variabel berubah.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD FUNGSI -->
+    <div class="relative min-w-[300px] h-96 overflow-hidden transform transition duration-300 hover:-translate-y-2 bg-cover bg-center"
+         style="background-image: url('{{ asset('images/fungsi-landing.jpg') }}');">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div class="text-white">
+                <h4 class="font-bold text-xl mb-1">Fungsi</h4>
+                <p class="text-sm opacity-90">
+                    Fungsi adalah hubungan antara dua variabel di mana setiap input memiliki satu output.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
 </section>
 
 <!-- ================= WHY ================= -->
 <section class="max-w-7xl mx-auto px-6 py-20">
     <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div class="bg-gray-100 h-96"></div>
+        <img src="{{ asset('images/why-landing.png') }}" alt="Mengapa Memilih Calcera" class="w-full h-96 object-cover rounded-2xl shadow-lg">
 
         <div>
             <p class="text-sm text-gray-500 mb-3 uppercase tracking-wide">Keunggulan</p>
@@ -251,37 +300,47 @@
             </h3>
         </div>
 
-        <div class="grid md:grid-cols-5 gap-4">
+        <!-- Baris Atas (3 Card) -->
+        <div class="grid md:grid-cols-3 gap-6 mb-6">
+            <!-- 1 -->
             <div class="bg-white p-8 text-center">
                 <div class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
                 <h4 class="font-semibold mb-2">Daftar atau Masuk</h4>
                 <p class="text-xs text-gray-600">Buat akun baru atau masuk ke akun yang sudah ada</p>
             </div>
 
+            <!-- 2 -->
             <div class="bg-white p-8 text-center">
                 <div class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
                 <h4 class="font-semibold mb-2">Pilih Materi Pelajaran</h4>
                 <p class="text-xs text-gray-600">Tentukan topik yang ingin dipelajari sesuai kebutuhan</p>
             </div>
 
+            <!-- 3 -->
             <div class="bg-white p-8 text-center">
                 <div class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
                 <h4 class="font-semibold mb-2">Pelajari Materi</h4>
                 <p class="text-xs text-gray-600">Pahami konsep dengan penjelasan lengkap dan contoh</p>
             </div>
+        </div>
 
-            <div class="bg-white p-8 text-center">
+        <!-- Baris Bawah (2 Card Center) -->
+        <div class="flex justify-center gap-6">
+            <!-- 4 -->
+            <div class="bg-white p-8 text-center w-full max-w-sm">
                 <div class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
                 <h4 class="font-semibold mb-2">Kerjakan Kuis</h4>
                 <p class="text-xs text-gray-600">Uji pemahaman dengan mengerjakan soal latihan</p>
             </div>
 
-            <div class="bg-white p-8 text-center">
+            <!-- 5 -->
+            <div class="bg-white p-8 text-center w-full max-w-sm">
                 <div class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">5</div>
                 <h4 class="font-semibold mb-2">Lanjut ke Materi Berikutnya</h4>
                 <p class="text-xs text-gray-600">Buka level baru setelah menyelesaikan kuis</p>
             </div>
         </div>
+
     </div>
 </section>
 

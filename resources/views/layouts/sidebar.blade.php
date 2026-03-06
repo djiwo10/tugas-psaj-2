@@ -61,6 +61,13 @@
                 <i class="ph-fill ph-headset text-[22px]"></i>
                 <span>Help and support</span>
             </a>
+
+            <a href="{{ url('/') }}"
+            class="menu-item flex items-center gap-3 h-11 px-3 rounded-xl text-base font-normal text-[rgba(30,30,30,0.5)] transition-all duration-200 hover:bg-gray-50">
+                <i class="ph-fill ph-globe text-[22px]"></i>
+                <span>Landing Page</span>
+            </a>
+            
         </div>
 
     </nav>

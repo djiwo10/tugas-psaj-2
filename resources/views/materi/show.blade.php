@@ -36,7 +36,9 @@
     <div class="bg-white rounded-2xl border-2 border-gray-100 shadow-sm overflow-hidden mb-6">
         <div class="p-6 sm:p-8">
             {{-- Content with Tailwind Prose --}}
-            <div class="prose prose-lg prose-gray max-w-none
+            <div class="prose prose-lg prose-gray max-w-none leading-relaxed
+                        prose-p:mb-6 prose-ul:mb-6 prose-ol:mb-6
+                        prose-li:mb-2
                         prose-headings:font-bold prose-headings:text-gray-900
                         prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
                         prose-p:text-gray-700 prose-p:leading-relaxed
@@ -121,6 +123,20 @@
     padding: 1rem 1.5rem;
     margin: 1.5rem 0;
     border-radius: 0.5rem;
+}
+
+.prose ul {
+    list-style-type: disc !important;
+    padding-left: 1.5rem !important;
+}
+
+.prose ol {
+    list-style-type: decimal !important;
+    padding-left: 1.5rem !important;
+}
+
+.prose li {
+    display: list-item !important;
 }
 </style>
 

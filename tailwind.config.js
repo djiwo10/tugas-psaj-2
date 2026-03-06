@@ -18,4 +18,5 @@ export default {
     },
 
     plugins: [forms],
+    presets: [require('@tailwindcss/typography')],
 };
